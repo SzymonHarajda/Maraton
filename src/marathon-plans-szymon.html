@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Szymon — Maraton Sub-3:00 × Nippard</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+body { margin: 0; background: #0F172A; }
+#root { min-height: 100vh; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const PHASES=[{id:1,name:"Baza Tlenowa",weeks:"Tygodnie 1–12",weeklyKm:"40 → 60 km",color:"#10B981",description:"Budowa fundamentu aerobowego. Większość biegów w strefie 1–2. Na koniec fazy: easy run poniżej 5:10/km w strefie 2.",strengthNote:"Siłówka: normalna intensywność, zredukuj objętość o ~20% (3–4 serie × 6–8 powt. zamiast 4–5 × 10–12).",blocks:[{week:"1–3",km:"40–45",runs:[{type:"easy",label:"Easy Run",desc:"5–6 km, strefa 1–2",when:"Rano przed siłówką (dni nóg/legs)"},{type:"easy",label:"Easy Run",desc:"5–6 km, strefa 1–2",when:"Rano przed siłówką (drugi dzień nóg)"},{type:"key",label:"Interwały",desc:"8 km total: 5×1000m @ 4:50/km, przerwa 2 min trucht",when:"Sobota"},{type:"long",label:"Long Run",desc:"14–16 km, strefa 2, spokojne tempo",when:"Niedziela"}]},{week:"4–6",km:"45–50",runs:[{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Interwały",desc:"10 km total: 6×1000m @ 4:45/km, przerwa 90s trucht",when:"Sobota"},{type:"long",label:"Long Run",desc:"16–18 km, strefa 2",when:"Niedziela"}]},{week:"7–9",km:"50–55",runs:[{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Tempo Run",desc:"11 km total: 7 km @ 4:50/km z progresją",when:"Sobota"},{type:"long",label:"Long Run",desc:"20–22 km, strefa 2, ostatnie 3 km w strefie 3",when:"Niedziela"}]},{week:"10–12",km:"55–60",runs:[{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Interwały",desc:"12 km total: 4×2000m @ 4:35/km + 4×400m @ 4:10/km",when:"Sobota"},{type:"long",label:"Long Run",desc:"22–24 km, strefa 2, ostatnie 5 km w strefie 3",when:"Niedziela"}]}]},{id:2,name:"Próg Mleczanowy",weeks:"Tygodnie 13–22",weeklyKm:"58 → 68 km",color:"#F59E0B",description:"Przesunięcie progu mleczanowego. Wprowadzamy VO2max i cruise intervals. Na koniec fazy: 4:40–4:45/km w strefie 3.",strengthNote:"Siłówka: kontynuuj ciężkie ciężary przy niższej objętości. Priorytet: utrzymanie siły, nie budowanie masy.",blocks:[{week:"13–15",km:"58–62",runs:[{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"VO2max",desc:"11 km total: 5×1200m @ 4:15/km, przerwa 2:30",when:"Sobota"},{type:"long",label:"Long Run",desc:"24–26 km, strefa 2, ostatnie 8 km @ 4:45/km",when:"Niedziela"}]},{week:"16–18",km:"62–65",runs:[{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Cruise Intervals",desc:"13 km total: 4×3 km @ 4:35/km, przerwa 90s",when:"Sobota"},{type:"long",label:"Long Run",desc:"26–28 km, strefa 2–3, ostatnie 10 km @ 4:40/km",when:"Niedziela"}]},{week:"19–22",km:"65–68",runs:[{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Marathon Pace",desc:"14 km total: 10 km @ 4:20/km",when:"Sobota"},{type:"long",label:"Long Run",desc:"30–32 km, ostatnie 14 km @ 4:30/km",when:"Niedziela"}]}]},{id:3,name:"Specyficzna Maratońska",weeks:"Tygodnie 23–30",weeklyKm:"65 → 70 km (szczyt)",color:"#EF4444",description:"Utrwalenie tempa 4:15/km w długich blokach. Kluczowe: long runy z 16–20 km w tempie maratońskim. Ćwicz strategię żywieniową.",strengthNote:"Siłówka: utrzymaj intensywność, zredukuj objętość o ~30% przy dniach nóg. Góra ciała bez zmian.",blocks:[{week:"23–26",km:"65–70",runs:[{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Marathon Pace",desc:"16 km total: 12 km @ 4:15/km",when:"Sobota"},{type:"long",label:"Long Run",desc:"32–34 km: 14 km easy + 18 km @ 4:15–4:20/km + żele",when:"Niedziela"}]},{week:"27–28",km:"65–70",runs:[{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"6–7 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"VO2max",desc:"11 km total: 5×1600m @ 3:55/km, przerwa 3 min",when:"Sobota"},{type:"long",label:"Long Run",desc:"34–36 km: 14 km easy + 20 km @ 4:15/km + żywienie wyścigowe",when:"Niedziela"}]},{week:"29–30",km:"60–65",runs:[{type:"easy",label:"Easy Run",desc:"6 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"6 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Marathon Pace",desc:"14 km total: 10 km @ 4:10–4:15/km",when:"Sobota"},{type:"long",label:"TEST 30 km",desc:"12 km easy + 18 km @ 4:15/km + pełna strategia żywieniowa",when:"Niedziela"}]}]},{id:4,name:"Taper & Wyścig",weeks:"Tygodnie 31–35",weeklyKm:"55 → 25 km",color:"#6366F1",description:"Dojść do startu wypoczętym. Utrzymujemy intensywność, radykalnie zmniejszamy objętość.",strengthNote:"Tydz. 31–33: normalne treningi, lekko zredukowane. Tydz. 34–35: tylko lekki Upper — żadnych nóg.",blocks:[{week:"31–33",km:"40–55",runs:[{type:"easy",label:"Easy Run",desc:"5–6 km, strefa 1–2",when:"Rano przed siłówką"},{type:"easy",label:"Easy Run",desc:"5 km, strefa 1–2",when:"Rano przed siłówką"},{type:"key",label:"Interwały",desc:"9 km total: 4×1000m @ 4:05/km, przerwa 2:30",when:"Sobota"},{type:"long",label:"Long Run",desc:"16–20 km, strefa 2–3, spokojnie",when:"Niedziela"}]},{week:"34–35 (WYŚCIG)",km:"25–35",runs:[{type:"easy",label:"Easy Run",desc:"4–5 km + nabiegania",when:"Przed lekkim Upper"},{type:"key",label:"Sharpening",desc:"3×800m @ 4:05/km + 2 km marathon pace"},{type:"easy",label:"Easy Run",desc:"3–4 km, luźno",when:"Wolny dzień lub spacer"},{type:"long",label:"MARATON!",desc:"🏃 SUB 2:59:59 — cel: 4:15/km, negative split"}]}]}];
+
+const ZONES=[{zone:"Strefa 1",hr:"< 130 bpm",paceGoal:"5:30+ /km",use:"Regeneracja",color:"#BBF7D0"},{zone:"Strefa 2",hr:"130–145",paceGoal:"4:50–5:10",use:"Easy / Long Run",color:"#A7F3D0"},{zone:"Strefa 3",hr:"145–156",paceGoal:"4:20–4:40",use:"Tempo / Próg",color:"#FDE68A"},{zone:"Strefa 4",hr:"156–168",paceGoal:"3:50–4:10",use:"VO2max",color:"#FECACA"},{zone:"Strefa 5",hr:"> 168",paceGoal:"< 3:50",use:"Sprinty",color:"#FCA5A5"}];
+
+const MILESTONES=[{when:"Po Fazie 1 (tydz. 12)",targets:["5 km < 22:30","10 km < 47:00","Easy run < 5:10/km"]},{when:"Po Fazie 2 (tydz. 22)",targets:["10 km < 43:30","Półmaraton < 1:32:00","Tempo 4:35–4:40/km"]},{when:"Po Fazie 3 (tydz. 30)",targets:["30 km z 18 km @ 4:15/km","Półmaraton < 1:28:00"]},{when:"Maraton (tydz. 35)",targets:["SUB 2:59:59 (4:15/km)"]}];
+
+const s = (obj) => obj;
+
+function App() {
+  const [activePhase, setActivePhase] = useState(()=> parseInt(localStorage.getItem('sz_phase')||'0'));
+  const [activeBlock, setActiveBlock] = useState(()=> parseInt(localStorage.getItem('sz_block')||'0'));
+  const [showZones, setShowZones] = useState(false);
+  const [showRotation, setShowRotation] = useState(false);
+  const [showMilestones, setShowMilestones] = useState(false);
+  const [completed, setCompleted] = useState(()=> JSON.parse(localStorage.getItem('sz_completed')||'{}'));
+  const [notes, setNotes] = useState(()=> JSON.parse(localStorage.getItem('sz_notes')||'{}'));
+  const [editingNote, setEditingNote] = useState(null);
+  const [currentWeek, setCurrentWeek] = useState(()=> parseInt(localStorage.getItem('sz_currentWeek')||'1'));
+
+  useEffect(()=> { localStorage.setItem('sz_phase', activePhase); }, [activePhase]);
+  useEffect(()=> { localStorage.setItem('sz_block', activeBlock); }, [activeBlock]);
+  useEffect(()=> { localStorage.setItem('sz_completed', JSON.stringify(completed)); }, [completed]);
+  useEffect(()=> { localStorage.setItem('sz_notes', JSON.stringify(notes)); }, [notes]);
+  useEffect(()=> { localStorage.setItem('sz_currentWeek', currentWeek); }, [currentWeek]);
+
+  const phase = PHASES[activePhase];
+  const block = phase.blocks[Math.min(activeBlock, phase.blocks.length-1)];
+
+  const toggleComplete = (phaseId, blockWeek, runIdx) => {
+    const key = `${phaseId}-${blockWeek}-${runIdx}`;
+    setCompleted(prev => ({...prev, [key]: !prev[key]}));
+  };
+
+  const isComplete = (phaseId, blockWeek, runIdx) => {
+    return !!completed[`${phaseId}-${blockWeek}-${runIdx}`];
+  };
+
+  const blockCompletionPct = () => {
+    let total = block.runs.length;
+    let done = block.runs.filter((_,i) => isComplete(phase.id, block.week, i)).length;
+    return Math.round((done/total)*100);
+  };
+
+  const gymOnly = [
+    {short:"UPR",color:"#8B5CF6"},{short:"LOW",color:"#EC4899"},
+    {short:"PULL",color:"#3B82F6"},{short:"PUSH",color:"#F97316"},
+    {short:"LEGS",color:"#14B8A6"}
+  ];
+
+  const weekDays = ["Pon","Wt","Śr","Czw","Pt","Sob","Nd"];
+  const gymDayIndices = [0,1,3,4];
+  const startIdx = ((currentWeek-1)*4)%5;
+  const weekGym = [0,1,2,3].map(i => gymOnly[(startIdx+i)%5]);
+
+  const weekSchedule = weekDays.map((day,i)=>{
+    const gi = gymDayIndices.indexOf(i);
+    if(gi!==-1){ const g=weekGym[gi]; return {day,gym:g,isLeg:g.short==="LOW"||g.short==="LEGS"}; }
+    if(i===2) return {day,biuro:true};
+    if(i===5) return {day,keyRun:true};
+    if(i===6) return {day,longRun:true};
+    return {day,rest:true};
+  });
+
+  const font = "'Archivo', sans-serif";
+  const mono = "'JetBrains Mono', monospace";
+
+  return React.createElement('div', {style:{fontFamily:font,background:"linear-gradient(135deg,#0F172A 0%,#1E293B 50%,#0F172A 100%)",color:"#E2E8F0",minHeight:"100vh",padding:0}},
+
+    // Header
+    React.createElement('div', {style:{padding:"16px 24px 20px",borderBottom:`2px solid ${phase.color}30`,background:`linear-gradient(180deg,${phase.color}08 0%,transparent 100%)`}},
+      React.createElement('div', {style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"8px"}},
+        React.createElement('a', {href:"index.html",style:{color:"#64748B",textDecoration:"none",fontSize:"12px",fontFamily:mono}}, "← Powrót"),
+        React.createElement('div', {style:{display:"flex",alignItems:"center",gap:"8px"}},
+          React.createElement('span', {style:{fontSize:"11px",color:"#64748B",fontFamily:mono}}, "Tydzień:"),
+          React.createElement('button', {onClick:()=>setCurrentWeek(Math.max(1,currentWeek-1)),style:{background:"#334155",border:"none",color:"#E2E8F0",borderRadius:"4px",width:"24px",height:"24px",cursor:"pointer",fontSize:"12px"}}, "−"),
+          React.createElement('span', {style:{fontSize:"16px",fontWeight:700,color:phase.color,minWidth:"24px",textAlign:"center"}}, currentWeek),
+          React.createElement('button', {onClick:()=>setCurrentWeek(Math.min(35,currentWeek+1)),style:{background:"#334155",border:"none",color:"#E2E8F0",borderRadius:"4px",width:"24px",height:"24px",cursor:"pointer",fontSize:"12px"}}, "+"),
+        )
+      ),
+      React.createElement('div', {style:{fontSize:"11px",fontWeight:700,letterSpacing:"3px",color:phase.color,textTransform:"uppercase",marginBottom:"4px",fontFamily:mono}}, "PLAN TRENINGOWY"),
+      React.createElement('h1', {style:{fontSize:"28px",fontWeight:900,margin:"0 0 4px",color:"#F8FAFC",letterSpacing:"-1px"}}, "MARATON SUB-3:00"),
+      React.createElement('div', {style:{fontSize:"11px",color:"#94A3B8",fontFamily:mono}}, "Nippard × Running · 4+4/tydz · 35 tygodni"),
+    ),
+
+    // Phase tabs
+    React.createElement('div', {style:{display:"flex",gap:"2px",padding:"12px 16px",overflowX:"auto"}},
+      PHASES.map((p,i)=> React.createElement('button', {key:i,onClick:()=>{setActivePhase(i);setActiveBlock(0);},style:{
+        flex:1,padding:"8px 4px",border:"none",borderRadius:"8px",
+        background:i===activePhase?p.color+"25":"transparent",
+        color:i===activePhase?p.color:"#64748B",fontSize:"10px",fontWeight:i===activePhase?700:500,
+        cursor:"pointer",borderBottom:i===activePhase?`2px solid ${p.color}`:"2px solid transparent",fontFamily:font
+      }},
+        React.createElement('div',{style:{fontSize:"14px",marginBottom:"2px"}},["🌱","⚡","🔥","🏁"][i]),
+        React.createElement('div',{style:{lineHeight:1.2}},`F${i+1}`)
+      ))
+    ),
+
+    // Phase info
+    React.createElement('div', {style:{margin:"0 16px",padding:"14px",background:phase.color+"10",borderRadius:"12px",borderLeft:`3px solid ${phase.color}`}},
+      React.createElement('div', {style:{display:"flex",justifyContent:"space-between",alignItems:"baseline",marginBottom:"4px"}},
+        React.createElement('h2', {style:{fontSize:"16px",fontWeight:800,color:phase.color,margin:0}}, phase.name),
+        React.createElement('span', {style:{fontSize:"10px",color:"#94A3B8",fontFamily:mono}}, phase.weeklyKm+"/tydz")
+      ),
+      React.createElement('div', {style:{fontSize:"10px",fontWeight:600,color:"#94A3B8",letterSpacing:"1px",marginBottom:"4px",fontFamily:mono}}, phase.weeks),
+      React.createElement('p', {style:{fontSize:"12px",color:"#CBD5E1",margin:"0 0 6px",lineHeight:1.4}}, phase.description),
+      React.createElement('p', {style:{fontSize:"11px",color:phase.color,margin:0,padding:"6px 8px",background:phase.color+"10",borderRadius:"6px",lineHeight:1.3}}, "💪 "+phase.strengthNote),
+    ),
+
+    // Block selector
+    React.createElement('div', {style:{display:"flex",gap:"6px",padding:"10px 16px",overflowX:"auto"}},
+      phase.blocks.map((b,i)=> React.createElement('button', {key:i,onClick:()=>setActiveBlock(i),style:{
+        padding:"6px 12px",border:"none",borderRadius:"8px",
+        background:i===activeBlock?phase.color:"#1E293B",
+        color:i===activeBlock?"#FFF":"#94A3B8",fontSize:"11px",fontWeight:600,cursor:"pointer",fontFamily:mono,whiteSpace:"nowrap"
+      }},
+        React.createElement('div',null,"Tydz. "+b.week),
+        React.createElement('div',{style:{fontSize:"9px",opacity:.8,marginTop:"2px"}},b.km+" km")
+      ))
+    ),
+
+    // Progress bar
+    React.createElement('div', {style:{padding:"0 16px 8px"}},
+      React.createElement('div', {style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"4px"}},
+        React.createElement('span', {style:{fontSize:"10px",color:"#64748B",fontFamily:mono}}, "Progres bloku"),
+        React.createElement('span', {style:{fontSize:"10px",color:phase.color,fontWeight:700,fontFamily:mono}}, blockCompletionPct()+"%")
+      ),
+      React.createElement('div', {style:{height:"4px",background:"#1E293B",borderRadius:"4px",overflow:"hidden"}},
+        React.createElement('div', {style:{height:"100%",width:blockCompletionPct()+"%",background:phase.color,borderRadius:"4px",transition:"width 0.3s"}})
+      )
+    ),
+
+    // Running sessions with checkboxes
+    React.createElement('div', {style:{padding:"0 16px 10px"}},
+      React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:"2px",color:"#64748B",marginBottom:"6px",fontFamily:mono}}, "TRENINGI BIEGOWE — kliknij aby oznaczyć ✓"),
+      React.createElement('div', {style:{display:"flex",flexDirection:"column",gap:"5px"}},
+        block.runs.map((run,i)=>{
+          const done = isComplete(phase.id, block.week, i);
+          const badgeStyles = {easy:{bg:"#DBEAFE",text:"#1E40AF",label:"EASY"},key:{bg:"#FEF3C7",text:"#92400E",label:"KLUCZOWY"},long:{bg:"#FCE7F3",text:"#9D174D",label:"LONG RUN"}};
+          const badge = badgeStyles[run.type];
+          const noteKey = `${phase.id}-${block.week}-${i}`;
+          return React.createElement('div', {key:i,onClick:()=>toggleComplete(phase.id,block.week,i),style:{
+            padding:"10px 12px",borderRadius:"10px",
+            background:done?"#10B98115":"#1E293B",
+            border:`1px solid ${done?"#10B98140":"#334155"}`,
+            cursor:"pointer",transition:"all 0.2s",opacity:done?.7:1
+          }},
+            React.createElement('div', {style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"3px"}},
+              React.createElement('div', {style:{display:"flex",alignItems:"center",gap:"8px"}},
+                React.createElement('span', {style:{width:"18px",height:"18px",borderRadius:"4px",border:`2px solid ${done?'#10B981':'#475569'}`,background:done?'#10B981':'transparent',display:"flex",alignItems:"center",justifyContent:"center",fontSize:"10px",color:"#FFF",flexShrink:0}}, done?"✓":""),
+                React.createElement('span', {style:{display:"inline-block",padding:"2px 6px",borderRadius:"4px",backgroundColor:badge.bg,color:badge.text,fontSize:"9px",fontWeight:700,letterSpacing:"0.5px"}}, badge.label),
+                React.createElement('span', {style:{fontSize:"12px",fontWeight:700,color:done?"#64748B":"#F1F5F9",textDecoration:done?"line-through":"none"}}, run.label),
+              ),
+            ),
+            React.createElement('div', {style:{fontSize:"12px",color:done?"#64748B":"#94A3B8",lineHeight:1.3,marginLeft:"26px"}}, run.desc),
+            run.when && React.createElement('div', {style:{fontSize:"10px",color:"#64748B",marginTop:"3px",fontStyle:"italic",marginLeft:"26px"}}, "📍 "+run.when),
+            // Note button
+            React.createElement('div', {style:{marginLeft:"26px",marginTop:"4px"},onClick:e=>e.stopPropagation()},
+              editingNote===noteKey ?
+                React.createElement('div', {style:{display:"flex",gap:"4px"}},
+                  React.createElement('input', {
+                    autoFocus:true,
+                    defaultValue:notes[noteKey]||"",
+                    onBlur:e=>{setNotes(prev=>({...prev,[noteKey]:e.target.value}));setEditingNote(null);},
+                    onKeyDown:e=>{if(e.key==="Enter"){setNotes(prev=>({...prev,[noteKey]:e.target.value}));setEditingNote(null);}},
+                    style:{flex:1,background:"#0F172A",border:"1px solid #334155",borderRadius:"4px",padding:"4px 8px",color:"#E2E8F0",fontSize:"11px",fontFamily:font,outline:"none"},
+                    placeholder:"Dodaj notatkę..."
+                  })
+                ) :
+                React.createElement('button', {onClick:()=>setEditingNote(noteKey),style:{
+                  background:"none",border:"none",color:notes[noteKey]?"#94A3B8":"#475569",
+                  fontSize:"10px",cursor:"pointer",padding:"2px 0",fontFamily:mono
+                }}, notes[noteKey] ? `📝 ${notes[noteKey]}` : "+ notatka")
+            )
+          );
+        })
+      )
+    ),
+
+    // Week schedule grid
+    React.createElement('div', {style:{padding:"0 16px 10px"}},
+      React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:"2px",color:"#64748B",marginBottom:"6px",fontFamily:mono}}, `TYDZIEŃ ${currentWeek} — ROTACJA NIPPARDA`),
+      React.createElement('div', {style:{display:"grid",gridTemplateColumns:"repeat(7, 1fr)",gap:"3px"}},
+        weekSchedule.map((d,i)=> React.createElement('div', {key:i,style:{
+          padding:"6px 2px",borderRadius:"8px",textAlign:"center",
+          background:d.biuro||d.rest?"#0F172A":"#1E293B",
+          border:`1px solid ${d.biuro||d.rest?"#1E293B":"#334155"}`
+        }},
+          React.createElement('div', {style:{fontSize:"9px",fontWeight:700,color:"#64748B",marginBottom:"3px",fontFamily:mono}}, d.day),
+          d.gym && React.createElement('div', {style:{fontSize:"8px",fontWeight:700,color:d.gym.color,marginBottom:"2px"}}, d.gym.short),
+          d.isLeg && React.createElement('div', {style:{fontSize:"7px",color:"#10B981"}}, "🏃 rano"),
+          d.keyRun && React.createElement('div', {style:{fontSize:"7px",color:"#F59E0B",fontWeight:600}}, "⚡ bieg"),
+          d.longRun && React.createElement('div', {style:{fontSize:"7px",color:"#EC4899",fontWeight:600}}, "📏 long"),
+          d.biuro && React.createElement('div', {style:{fontSize:"7px",color:"#475569"}}, "🏢 biuro"),
+          d.rest && !d.biuro && React.createElement('div', {style:{fontSize:"7px",color:"#475569"}}, "OFF")
+        ))
+      ),
+      React.createElement('div', {style:{fontSize:"10px",color:"#64748B",marginTop:"6px",lineHeight:1.4,padding:"8px",background:"#0F172A",borderRadius:"8px"}},
+        React.createElement('strong', {style:{color:"#94A3B8"}}, "Układ: "),
+        "Pon/Wt/Czw/Pt = siłówka. Śr = biuro. Sob = trening kluczowy. Nd = long run. W dni nóg: lekki bieg rano."
+      )
+    ),
+
+    // Expandable sections
+    React.createElement('div', {style:{padding:"0 16px 10px"}},
+      // Zones
+      React.createElement('button', {onClick:()=>setShowZones(!showZones),style:{width:"100%",padding:"10px 12px",border:"1px solid #334155",borderRadius:"10px",background:"#1E293B",color:"#E2E8F0",fontSize:"12px",fontWeight:600,cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"5px",fontFamily:font}},
+        React.createElement('span',null,"❤️ Strefy Tętna"),
+        React.createElement('span',{style:{transition:"transform 0.2s",transform:showZones?"rotate(180deg)":"none"}},"▾")
+      ),
+      showZones && React.createElement('div', {style:{padding:"10px",background:"#0F172A",borderRadius:"10px",marginBottom:"5px",border:"1px solid #1E293B"}},
+        ZONES.map((z,i)=> React.createElement('div',{key:i,style:{display:"flex",gap:"8px",padding:"4px 0",borderBottom:i<4?"1px solid #1E293B":"none",alignItems:"center"}},
+          React.createElement('span',{style:{fontSize:"10px",fontWeight:700,padding:"2px 6px",borderRadius:"4px",background:z.color+"30",minWidth:"60px",textAlign:"center",fontFamily:mono}},z.zone),
+          React.createElement('span',{style:{fontSize:"10px",color:"#94A3B8",fontFamily:mono,minWidth:"65px"}},z.hr),
+          React.createElement('span',{style:{fontSize:"10px",color:"#CBD5E1"}},z.use+" · "+z.paceGoal+"/km")
+        ))
+      ),
+
+      // Milestones
+      React.createElement('button', {onClick:()=>setShowMilestones(!showMilestones),style:{width:"100%",padding:"10px 12px",border:"1px solid #334155",borderRadius:"10px",background:"#1E293B",color:"#E2E8F0",fontSize:"12px",fontWeight:600,cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"5px",fontFamily:font}},
+        React.createElement('span',null,"🎯 Kamienie Milowe"),
+        React.createElement('span',{style:{transition:"transform 0.2s",transform:showMilestones?"rotate(180deg)":"none"}},"▾")
+      ),
+      showMilestones && React.createElement('div', {style:{padding:"10px",background:"#0F172A",borderRadius:"10px",marginBottom:"5px",border:"1px solid #1E293B"}},
+        MILESTONES.map((m,i)=> React.createElement('div',{key:i,style:{padding:"6px 0",borderBottom:i<3?"1px solid #1E293B":"none"}},
+          React.createElement('div',{style:{fontSize:"11px",fontWeight:700,color:PHASES[i].color,marginBottom:"3px"}},m.when),
+          React.createElement('div',{style:{display:"flex",flexWrap:"wrap",gap:"3px"}},
+            m.targets.map((t,j)=> React.createElement('span',{key:j,style:{fontSize:"10px",padding:"2px 6px",borderRadius:"4px",background:PHASES[i].color+"15",color:"#CBD5E1",fontFamily:mono}},t))
+          )
+        ))
+      ),
+
+      // Rotation
+      React.createElement('button', {onClick:()=>setShowRotation(!showRotation),style:{width:"100%",padding:"10px 12px",border:"1px solid #334155",borderRadius:"10px",background:"#1E293B",color:"#E2E8F0",fontSize:"12px",fontWeight:600,cursor:"pointer",display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"5px",fontFamily:font}},
+        React.createElement('span',null,"🔄 Rotacja Nipparda"),
+        React.createElement('span',{style:{transition:"transform 0.2s",transform:showRotation?"rotate(180deg)":"none"}},"▾")
+      ),
+      showRotation && React.createElement('div', {style:{padding:"10px",background:"#0F172A",borderRadius:"10px",marginBottom:"5px",border:"1px solid #1E293B"}},
+        React.createElement('div',{style:{fontSize:"11px",color:"#CBD5E1",lineHeight:1.5,marginBottom:"8px"}},"5 treningów rotuje w 4 dniach siłówki:"),
+        [0,1,2,3,4].map(w=> React.createElement('div',{key:w,style:{display:"flex",alignItems:"center",gap:"6px",padding:"3px 0",borderBottom:w<4?"1px solid #1E293B":"none"}},
+          React.createElement('span',{style:{fontSize:"9px",color:"#64748B",minWidth:"40px",fontFamily:mono}},"Tydz "+(w+1)),
+          React.createElement('div',{style:{display:"flex",gap:"3px"}},
+            [0,1,2,3].map(i=>{const g=gymOnly[((w*4)+i)%5]; return React.createElement('span',{key:i,style:{fontSize:"9px",fontWeight:700,padding:"2px 6px",borderRadius:"4px",background:g.color+"20",color:g.color,fontFamily:mono}},g.short)})
+          )
+        )),
+        React.createElement('div',{style:{fontSize:"9px",color:"#64748B",marginTop:"6px",fontStyle:"italic"}},"Cykl powtarza się co 5 tygodni.")
+      )
+    ),
+
+    // Tips
+    React.createElement('div', {style:{margin:"0 16px 20px",padding:"14px",background:"linear-gradient(135deg,#1E293B,#0F172A)",borderRadius:"12px",border:"1px solid #334155"}},
+      React.createElement('div', {style:{fontSize:"10px",fontWeight:700,letterSpacing:"2px",color:"#64748B",marginBottom:"8px",fontFamily:mono}}, "KLUCZOWE ZASADY"),
+      ["⚖️ 80/20 — 80% biegów w strefie 1–2, 20% intensywnie","🥩 Białko 1.8–2.2 g/kg, węgle 5–7 g/kg. Nie tnij kalorii!","💤 7–9h snu — przy 8 sesjach/tydzień to minimum","📈 Maks. +10% km/tydz. Co 4 tygodnie deload –20%","🏋️ Utrzymuj ciężary, redukuj serie (nie kg na sztandze)","🔀 Źle się czujesz → zamień na easy run"].map((tip,i)=>
+        React.createElement('div',{key:i,style:{display:"flex",gap:"8px",padding:"4px 0",borderBottom:i<5?"1px solid #1E293B50":"none",alignItems:"flex-start"}},
+          React.createElement('span',{style:{fontSize:"12px",flexShrink:0}},tip.slice(0,2)),
+          React.createElement('span',{style:{fontSize:"11px",color:"#94A3B8",lineHeight:1.3}},tip.slice(3))
+        )
+      )
+    ),
+
+    // Reset button
+    React.createElement('div', {style:{textAlign:"center",padding:"0 16px 24px"}},
+      React.createElement('button', {onClick:()=>{if(confirm("Wyczyścić cały progres?")){setCompleted({});setNotes({});setCurrentWeek(1);setActivePhase(0);setActiveBlock(0);}},style:{
+        background:"none",border:"1px solid #334155",borderRadius:"8px",padding:"8px 16px",color:"#64748B",fontSize:"10px",cursor:"pointer",fontFamily:mono
+      }}, "🗑 Wyczyść progres")
+    ),
+
+    React.createElement('div', {style:{textAlign:"center",padding:"0 16px 32px",fontSize:"9px",color:"#475569",fontFamily:mono}}, "Nippard Bodybuilding Transformation × Marathon Sub-3:00")
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById('root'));
+</script>
+</body>
+</html>

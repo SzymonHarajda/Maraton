@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marathon Plans — Sub 3:00</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0F172A;
+  color: #E2E8F0;
+  font-family: 'Archivo', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.container {
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+.overline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #10B981;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+h1 {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(135deg, #F8FAFC, #10B981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.subtitle {
+  color: #64748B;
+  font-size: 14px;
+  margin-bottom: 48px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.plan-card {
+  display: block;
+  text-decoration: none;
+  padding: 28px 24px;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  background: #1E293B;
+  transition: all 0.3s;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.plan-card:hover {
+  border-color: #10B981;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+}
+.plan-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  border-radius: 16px 0 0 16px;
+}
+.plan-card.szymon::before { background: #8B5CF6; }
+.plan-card.partnerka::before { background: #E8F542; }
+.card-emoji { font-size: 28px; margin-bottom: 8px; display: block; }
+.card-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #F1F5F9;
+  margin-bottom: 4px;
+}
+.card-desc {
+  font-size: 13px;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+.card-tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+}
+.plan-card.szymon .card-tag { background: #8B5CF620; color: #8B5CF6; }
+.plan-card.partnerka .card-tag { background: #E8F54220; color: #E8F542; }
+.arrow {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #475569;
+  transition: all 0.3s;
+}
+.plan-card:hover .arrow { color: #10B981; transform: translateY(-50%) translateX(4px); }
+footer {
+  margin-top: 48px;
+  font-size: 10px;
+  color: #475569;
+  font-family: 'JetBrains Mono', monospace;
+  text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="overline">Plan treningowy</div>
+  <h1>SUB 3:00</h1>
+  <div class="subtitle">Wybierz swój plan</div>
+
+  <div class="cards">
+    <a href="szymon.html" class="plan-card szymon">
+      <span class="card-emoji">🏋️</span>
+      <div class="card-name">Szymon</div>
+      <div class="card-desc">Nippard Bodybuilding × Running<br>4 siłówki + 4 biegi · 35 tygodni</div>
+      <span class="card-tag">Upper/Lower/Push/Pull/Legs + Bieg</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <a href="partnerka.html" class="plan-card partnerka">
+      <span class="card-emoji">🏃‍♀️</span>
+      <div class="card-name">Partnerka</div>
+      <div class="card-desc">Plan biegowy od zera do sub-3h<br>6 biegów/tydzień · 24 miesiące</div>
+      <span class="card-tag">Baza → Próg → Specyficzna → Wyścig</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <footer>GitHub Pages · Dostępne offline po pierwszym załadowaniu</footer>
+</div>
+</body>
+</html>

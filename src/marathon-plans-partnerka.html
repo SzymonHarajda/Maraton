@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sub-3h Maraton — Plan Treningowy</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0b0c0e;
+  --surface: #13151a;
+  --surface2: #1c1f27;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8e4dc;
+  --muted: #7a7875;
+  --accent: #e8f542;
+  --accent2: #42c5f5;
+  --red: #f54242;
+  --orange: #f59142;
+  --green: #42f5a7;
+  --z1: #60c4a8;
+  --z2: #42f5a7;
+  --z3: #f5c842;
+  --z4: #f59142;
+  --z5: #f54242;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11,12,14,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all .2s;
+}
+
+.nav-links a:hover { color: var(--text); background: var(--surface2); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 80px 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(232,245,66,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(66,197,245,0.04) 0%, transparent 50%),
+    var(--bg);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.hero-overline {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: fadeUp .8s ease both;
+}
+
+.hero-overline::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 14vw, 180px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  position: relative;
+  animation: fadeUp .8s .1s ease both;
+}
+
+.hero h1 .line2 {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(232,245,66,0.5);
+}
+
+.hero-sub {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 26px);
+  color: var(--muted);
+  margin-top: 20px;
+  max-width: 600px;
+  animation: fadeUp .8s .2s ease both;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+  animation: fadeUp .8s .35s ease both;
+}
+
+.hero-stat {
+  position: relative;
+}
+
+.hero-stat-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 2px;
+  line-height: 1;
+  display: block;
+}
+
+.hero-stat-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-top: 4px;
+}
+
+.hero-badge {
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  width: 140px;
+  height: 140px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: spin-slow 20s linear infinite;
+}
+
+.hero-badge-inner {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.hero-badge-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: bounce 2s infinite;
+  color: var(--muted);
+}
+
+.scroll-hint span { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; }
+.scroll-hint-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--muted), transparent); }
+
+/* SECTION WRAPPER */
+section {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.section-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--accent);
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  max-width: 60px;
+}
+
+.section-h {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 48px;
+}
+
+/* DIAGNOZA */
+.diagnoza-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .3s;
+}
+
+.card:hover { border-color: rgba(255,255,255,0.12); }
+
+.card-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.card-big-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.card-big-unit {
+  font-size: 18px;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+.card p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(232,228,220,0.75);
+}
+
+.problem-bar {
+  background: linear-gradient(135deg, #1f0909 0%, var(--surface) 100%);
+  border-color: rgba(245,66,66,0.2);
+}
+
+.problem-bar::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--red);
+  border-radius: 3px 0 0 3px;
+}
+
+.solution-bar {
+  background: linear-gradient(135deg, #061a0f 0%, var(--surface) 100%);
+  border-color: rgba(66,245,167,0.2);
+}
+
+.solution-bar::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--green);
+  border-radius: 3px 0 0 3px;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.tag-red { background: rgba(245,66,66,0.15); color: var(--red); border: 1px solid rgba(245,66,66,0.25); }
+.tag-green { background: rgba(66,245,167,0.15); color: var(--green); border: 1px solid rgba(66,245,167,0.25); }
+.tag-yellow { background: rgba(232,245,66,0.15); color: var(--accent); border: 1px solid rgba(232,245,66,0.25); }
+.tag-blue { background: rgba(66,197,245,0.15); color: var(--accent2); border: 1px solid rgba(66,197,245,0.25); }
+
+/* ZONES */
+.zones-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zone-row {
+  display: grid;
+  grid-template-columns: 100px 120px 1fr 180px 80px;
+  align-items: center;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 24px;
+  transition: all .25s;
+  cursor: default;
+}
+
+.zone-row:hover {
+  transform: translateX(4px);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.zone-row.highlight {
+  border-color: rgba(66,245,167,0.35);
+  background: linear-gradient(135deg, rgba(66,245,167,0.06) 0%, var(--surface) 100%);
+}
+
+.zone-name-col {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zone-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.zone-name-text {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.zone-hr-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+
+.zone-bar-wrap {
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.zone-bar-fill {
+  height: 100%;
+  border-radius: 100px;
+  transition: width 1s ease;
+}
+
+.zone-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.zone-pct {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  text-align: right;
+  letter-spacing: 1px;
+}
+
+.zone-header {
+  display: grid;
+  grid-template-columns: 100px 120px 1fr 180px 80px;
+  gap: 20px;
+  padding: 0 24px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* PHASES NAV */
+.phases-nav {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.phase-btn {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all .2s;
+  text-align: center;
+}
+
+.phase-btn.active {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.phase-btn span {
+  display: block;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  line-height: 1.1;
+}
+
+.phase-content { display: none; }
+.phase-content.active { display: block; animation: fadeIn .3s ease; }
+
+.phase-header-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.phase-title-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.phase-title-card::after {
+  content: attr(data-num);
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 140px;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.phase-big-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  letter-spacing: 2px;
+  line-height: 1.05;
+  margin-bottom: 12px;
+}
+
+.phase-duration {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.phase-goal-text {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: rgba(232,228,220,0.7);
+  line-height: 1.7;
+}
+
+.phase-kpis-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-content: start;
+}
+
+.kpi-item {}
+.kpi-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  letter-spacing: 2px;
+  line-height: 1;
+  color: var(--accent);
+}
+.kpi-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* WEEK SCHEDULE */
+.week-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.day-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform .2s;
+}
+
+.day-card:hover { transform: translateY(-3px); }
+
+.day-card.rest { opacity: 0.55; }
+
+.day-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.day-icon { font-size: 20px; }
+
+.day-type {
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.day-km {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.day-card.easy { border-color: rgba(66,245,167,0.2); }
+.day-card.moderate { border-color: rgba(245,200,66,0.2); }
+.day-card.hard { border-color: rgba(245,66,66,0.2); }
+.day-card.long { border-color: rgba(66,197,245,0.2); }
+
+/* RULES */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.rule-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.rule-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.12); }
+
+.rule-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 12px 12px 0 0;
+}
+
+.rule-card.r1::before { background: var(--green); }
+.rule-card.r2::before { background: var(--red); }
+.rule-card.r3::before { background: var(--orange); }
+.rule-card.r4::before { background: var(--accent2); }
+.rule-card.r5::before { background: var(--accent); }
+.rule-card.r6::before { background: var(--z4); }
+
+.rule-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.rule-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.rule-text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: rgba(232,228,220,0.65);
+}
+
+.rule-highlight {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* MILESTONES */
+.timeline {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 20px;
+  bottom: 20px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--green) 0%, var(--accent) 40%, var(--orange) 70%, var(--red) 100%);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -34px;
+  top: 22px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--muted);
+  transition: border-color .3s;
+}
+
+.timeline-item:hover::before { border-color: var(--accent); }
+
+.timeline-item.star::before {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(232,245,66,0.5);
+}
+
+.milestone-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  transition: all .25s;
+}
+
+.milestone-card:hover { border-color: rgba(255,255,255,0.1); transform: translateX(4px); }
+
+.milestone-card.star-card {
+  border-color: rgba(232,245,66,0.25);
+  background: linear-gradient(135deg, rgba(232,245,66,0.05) 0%, var(--surface) 100%);
+}
+
+.milestone-time {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.milestone-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.milestone-desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.milestone-target {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* EQUIPMENT */
+.equip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.equip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.equip-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.equip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.equip-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(66,245,167,0.15);
+  border: 1px solid rgba(66,245,167,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.equip-opt {
+  background: rgba(122,120,117,0.15);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 4px;
+  color: var(--muted);
+}
+
+.footer-note {
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 400px;
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* DIVIDER */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* PROGRESS TRACKER */
+.progress-strip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+}
+
+.progress-step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.progress-step::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+}
+
+.progress-step:last-child::after { display: none; }
+
+.ps-month {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.ps-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--text);
+}
+
+.ps-km {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* INTRO ALERT */
+.alert-box {
+  background: rgba(232,245,66,0.06);
+  border: 1px solid rgba(232,245,66,0.2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.alert-icon { font-size: 22px; flex-shrink: 0; }
+.alert-text { font-size: 14px; line-height: 1.7; color: rgba(232,228,220,0.85); }
+.alert-text strong { color: var(--accent); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 16px; }
+  .nav-links { 
+    display: none;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(11,12,14,0.96);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 16px;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 12px 16px; font-size: 14px; display: block; }
+  .hamburger { display: flex !important; }
+  .hero { padding: 70px 20px 40px; min-height: auto; }
+  .hero h1 { font-size: 52px; }
+  .hero-sub { font-size: 16px; }
+  .hero-badge { display: none; }
+  .hero-stats { gap: 24px; margin-top: 32px; }
+  .hero-stat-val { font-size: 36px; }
+  .scroll-hint { display: none; }
+  section { padding: 40px 16px; }
+  .section-h { font-size: 32px; margin-bottom: 24px; }
+  .diagnoza-grid { grid-template-columns: 1fr; }
+  .card-big-num { font-size: 56px; }
+  .phase-header-block { grid-template-columns: 1fr; }
+  .phases-nav { flex-wrap: wrap; }
+  .phase-btn { min-width: 45%; }
+  .phase-btn span { font-size: 18px; }
+  .week-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .day-card { min-height: 90px; padding: 10px 6px; }
+  .rules-grid { grid-template-columns: 1fr; }
+  .equip-grid { grid-template-columns: 1fr; }
+  .timeline { padding-left: 20px; }
+  .milestone-card { grid-template-columns: 60px 1fr; gap: 12px; }
+  .milestone-target { display: none; }
+  .zone-header { display: none; }
+  .zone-row { grid-template-columns: 1fr; gap: 4px; padding: 12px 16px; }
+  .zone-bar-wrap { display: none; }
+  .zone-desc { display: none; }
+  .zone-pct { text-align: left; }
+  .zone-name-col { margin-bottom: 2px; }
+  footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px 16px; }
+  .footer-note { text-align: center; max-width: 100%; }
+  .progress-strip { flex-wrap: wrap; gap: 8px; padding: 16px; }
+  .progress-step { min-width: 45%; }
+  .progress-step::after { display: none; }
+  .alert-box { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">← SUB-3H</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#diagnoza" onclick="closeNav()">Diagnoza</a></li>
+    <li><a href="#strefy" onclick="closeNav()">Strefy</a></li>
+    <li><a href="#fazy" onclick="closeNav()">Fazy</a></li>
+    <li><a href="#zasady" onclick="closeNav()">Zasady</a></li>
+    <li><a href="#kamienie" onclick="closeNav()">Postęp</a></li>
+    <li><a href="#sprzet" onclick="closeNav()">Sprzęt</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()">☰</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-inner">42.2</span>
+    <span class="hero-badge-label">km maraton</span>
+  </div>
+
+  <div class="hero-overline">Plan Treningowy · Kobiety · 24 lata</div>
+  <h1>
+    DROGA<br>
+    <span class="line2">DO SUB-3H</span>
+  </h1>
+  <p class="hero-sub">Systematyczna budowa silnika tlenowego — od 8:20/km do docelowego tempa 4:15/km w maratonie</p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-val" style="color:var(--red);">8:20</span>
+      <span class="hero-stat-label">tempo startowe /km</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val" style="color:var(--orange);">160</span>
+      <span class="hero-stat-label">tętno startowe bpm</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val" style="color:var(--accent);">≤145</span>
+      <span class="hero-stat-label">docelowe tętno Z2</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val" style="color:var(--green);">4:15</span>
+      <span class="hero-stat-label">cel maratoński /km</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-val">18–24</span>
+      <span class="hero-stat-label">miesiące przygotowań</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-hint-line"></div>
+  </div>
+</div>
+
+<!-- DIAGNOZA -->
+<section id="diagnoza">
+  <div class="section-tag">
+    <span class="section-num">01</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">DIAGNOZA STARTOWA</h2>
+
+  <div class="alert-box">
+    <span class="alert-icon">⚡</span>
+    <p class="alert-text">
+      <strong>Kluczowy problem:</strong> Biegasz w tempie 8:20/km przy tętnie 160 bpm — to strefa 4 (82% HRmax).
+      Traktujesz każdy trening jak wysiłek umiarkowanie ciężki. To blokuje adaptacje tlenowe i hamuje postęp.
+      Rozwiązanie: spowalniasz tak bardzo, jak wymaga tętno ≤145 bpm, nawet do 10:00/km. <strong>To jest prawidłowe.</strong>
+    </p>
+  </div>
+
+  <div class="diagnoza-grid">
+    <div class="card problem-bar">
+      <div class="card-label">Stan obecny — problem</div>
+      <div class="tag-pill tag-red">⚠ Za wysokie tętno</div>
+      <div style="display:flex; align-items:baseline; gap:6px; margin: 12px 0;">
+        <span class="card-big-num">160</span>
+        <span class="card-big-unit">bpm przy 8:20/km</span>
+      </div>
+      <p>Tętno 160 bpm to 82% Twojego szacowanego HRmax (196 bpm w wieku 24 lat). Biegasz w szarej strefie — zbyt ciężko na efektywną budowę bazy tlenowej, zbyt wolno na progresję wydolności. Mitochondria i kapilaryzacja mięśni rozwijają się przede wszystkim w strefie 2 (129–145 bpm).</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="card" style="flex:1;">
+        <div class="card-label">Szacowany HRmax</div>
+        <span class="card-big-num" style="font-size:56px; color:var(--accent2);">196 <span style="font-size:16px; color:var(--muted);">bpm</span></span>
+        <p style="margin-top:8px; font-size:13px;">Formuła: 208 − (0.7 × 24 lat). Zweryfikuj testem bieżniowym. 160 bpm = 81.6% HRmax → Strefa 4.</p>
+      </div>
+      <div class="card" style="flex:1;">
+        <div class="card-label">Cel długoterminowy</div>
+        <div style="display:flex; align-items:baseline; gap:4px;">
+          <span class="card-big-num" style="font-size:56px; color:var(--green);">4:15</span>
+          <span class="card-big-unit">/km</span>
+        </div>
+        <p style="margin-top:8px; font-size:13px;">Wymagane tempo na maraton sub-3h. To 2× szybciej niż dziś — przy podobnym koszcie metabolicznym. Wymaga silnego silnika tlenowego.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+    <div class="card solution-bar">
+      <div class="tag-pill tag-green">✓ Rozwiązanie</div>
+      <div class="rule-title" style="font-size:18px; margin-top:8px;">Zwolnij, żeby przyspieszyć</div>
+      <p style="margin-top:10px;">Przez pierwsze 3–4 miesiące biegnij tak wolno, jak wymaga tętno ≤145 bpm. Mogą to być 9:30–10:30/km. Po 6–8 miesiącach regularnego treningu to samo tętno da Ci ~7:00/km — to widoczny dowód, że silnik rośnie.</p>
+    </div>
+    <div class="card">
+      <div class="tag-pill tag-yellow">📅 Horyzont</div>
+      <div class="rule-title" style="font-size:18px; margin-top:8px;">18–24 miesiące</div>
+      <p style="margin-top:10px;">Sub-3h maraton przy aktualnym poziomie to realny cel w 18–24 miesiącach cierpliwego, systematycznego treningu. Nie skracaj bazy. Każdy tydzień w Z2 to inwestycja procentująca przez lata.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STREFY TĘTNA -->
+<section id="strefy">
+  <div class="section-tag">
+    <span class="section-num">02</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">STREFY TĘTNA</h2>
+
+  <div class="zone-header">
+    <span>Strefa</span>
+    <span>Tętno</span>
+    <span>Wypełnienie treningu</span>
+    <span>Kiedy stosować</span>
+    <span>Udział</span>
+  </div>
+
+  <div class="zones-container">
+    <div class="zone-row">
+      <div class="zone-name-col">
+        <div class="zone-dot" style="background:var(--z1);"></div>
+        <div>
+          <div class="zone-name-text">Z1</div>
+          <div style="font-size:10px; color:var(--muted);">Regeneracja</div>
+        </div>
+      </div>
+      <div class="zone-hr-text" style="color:var(--z1);">115–128</div>
+      <div>
+        <div class="zone-bar-wrap">
+          <div class="zone-bar-fill" style="width:15%; background:var(--z1);"></div>
+        </div>
+      </div>
+      <div class="zone-desc">Trucht regeneracyjny, rozgrzewka, schłodzenie. Swobodna rozmowa możliwa.</div>
+      <div class="zone-pct" style="color:var(--z1);">15%</div>
+    </div>
+
+    <div class="zone-row highlight">
+      <div class="zone-name-col">
+        <div class="zone-dot" style="background:var(--z2);"></div>
+        <div>
+          <div class="zone-name-text">Z2 ★</div>
+          <div style="font-size:10px; color:var(--green);">BAZA TLENOWA</div>
+        </div>
+      </div>
+      <div class="zone-hr-text" style="color:var(--z2);">129–145</div>
+      <div>
+        <div class="zone-bar-wrap">
+          <div class="zone-bar-fill" style="width:65%; background:var(--z2);"></div>
+        </div>
+      </div>
+      <div class="zone-desc" style="color:var(--text);">Główny bodziec. Możliwa pełna rozmowa. Mitochondria, kapilaryzacja. Przez pierwsze 3 mies. — prawie wyłącznie tu.</div>
+      <div class="zone-pct" style="color:var(--z2);">65%</div>
+    </div>
+
+    <div class="zone-row">
+      <div class="zone-name-col">
+        <div class="zone-dot" style="background:var(--z3);"></div>
+        <div>
+          <div class="zone-name-text">Z3</div>
+          <div style="font-size:10px; color:var(--muted);">Progowa</div>
+        </div>
+      </div>
+      <div class="zone-hr-text" style="color:var(--z3);">146–158</div>
+      <div>
+        <div class="zone-bar-wrap">
+          <div class="zone-bar-fill" style="width:10%; background:var(--z3);"></div>
+        </div>
+      </div>
+      <div class="zone-desc">Biegi tempowe. Trudno utrzymać rozmowę. Wprowadź po 3 miesiącach treningu.</div>
+      <div class="zone-pct" style="color:var(--z3);">10%</div>
+    </div>
+
+    <div class="zone-row">
+      <div class="zone-name-col">
+        <div class="zone-dot" style="background:var(--z4);"></div>
+        <div>
+          <div class="zone-name-text">Z4</div>
+          <div style="font-size:10px; color:var(--muted);">Próg mlecz.</div>
+        </div>
+      </div>
+      <div class="zone-hr-text" style="color:var(--z4);">159–172</div>
+      <div>
+        <div class="zone-bar-wrap">
+          <div class="zone-bar-fill" style="width:7%; background:var(--z4);"></div>
+        </div>
+      </div>
+      <div class="zone-desc">Interwały długie. Urywane słowa. Stosuj po 6 mies. treningu bazowego.</div>
+      <div class="zone-pct" style="color:var(--z4);">7%</div>
+    </div>
+
+    <div class="zone-row">
+      <div class="zone-name-col">
+        <div class="zone-dot" style="background:var(--z5);"></div>
+        <div>
+          <div class="zone-name-text">Z5</div>
+          <div style="font-size:10px; color:var(--muted);">VO2max</div>
+        </div>
+      </div>
+      <div class="zone-hr-text" style="color:var(--z5);">173+</div>
+      <div>
+        <div class="zone-bar-wrap">
+          <div class="zone-bar-fill" style="width:3%; background:var(--z5);"></div>
+        </div>
+      </div>
+      <div class="zone-desc">Krótkie interwały. Maksymalny wysiłek. Dopiero po 9 miesiącach solidnej bazy.</div>
+      <div class="zone-pct" style="color:var(--z5);">3%</div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px; padding:16px 24px; background:rgba(232,245,66,0.05); border:1px solid rgba(232,245,66,0.15); border-radius:10px;">
+    <p style="font-size:13px; color:rgba(232,228,220,0.7); line-height:1.7;">
+      <strong style="color:var(--accent);">Zasada 80/20:</strong>
+      80% całkowitego kilometrażu biegasz w Z1–Z2 (bardzo łatwo / łatwo). Tylko 20% może być w Z3–Z5.
+      To nie jest "zbyt leniwe" — tak trenują wszyscy elitarni maratończycy świata. Błąd większości rekreacyjnych biegaczy to codzienne bieganie "umiarkowanie ciężko" — za ciężko na adaptacje tlenowe, za lekko na adaptacje szybkościowe.
+    </p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FAZY TRENINGOWE -->
+<section id="fazy">
+  <div class="section-tag">
+    <span class="section-num">03</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">PLAN — 4 FAZY</h2>
+
+  <!-- Pasek postępu objętości -->
+  <div class="progress-strip">
+    <div class="progress-step">
+      <div class="ps-month">Mies. 1–3</div>
+      <div class="ps-label" style="color:var(--z2);">FUNDAMENT</div>
+      <div class="ps-km">20–30 km/tyg</div>
+    </div>
+    <div class="progress-step">
+      <div class="ps-month">Mies. 4–8</div>
+      <div class="ps-label" style="color:var(--z3);">BUDOWA</div>
+      <div class="ps-km">40–60 km/tyg</div>
+    </div>
+    <div class="progress-step">
+      <div class="ps-month">Mies. 9–16</div>
+      <div class="ps-label" style="color:var(--z4);">SPECYFIKA</div>
+      <div class="ps-km">60–75 km/tyg</div>
+    </div>
+    <div class="progress-step">
+      <div class="ps-month">Mies. 17–24</div>
+      <div class="ps-label" style="color:var(--red);">SUB-3H</div>
+      <div class="ps-km">do 80 km/tyg</div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="phases-nav">
+    <button class="phase-btn active" onclick="switchPhase(0)">
+      <span>01</span>Fundamenty
+    </button>
+    <button class="phase-btn" onclick="switchPhase(1)">
+      <span>02</span>Objętość
+    </button>
+    <button class="phase-btn" onclick="switchPhase(2)">
+      <span>03</span>Specyfika
+    </button>
+    <button class="phase-btn" onclick="switchPhase(3)">
+      <span>04</span>Sub-3h
+    </button>
+  </div>
+
+  <!-- FAZA 1 -->
+  <div class="phase-content active" id="phase-0">
+    <div class="phase-header-block">
+      <div class="phase-title-card" data-num="01">
+        <div class="phase-duration"><span style="color:var(--green);">●</span> Miesiące 1–3</div>
+        <div class="phase-big-title">FUNDAMENTY<br>TLENOWE</div>
+        <p class="phase-goal">Cel tej fazy to wyrobienie nawyku biegania 4× w tygodniu i nauczenie się biegania wolno. Tętno ≤145 bpm jest świętą zasadą — bez wyjątków. W pierwszych tygodniach może to być marsz-bieg. To jest prawidłowe i konieczne.</p>
+      </div>
+      <div class="phase-kpis-card">
+        <div class="kpi-item">
+          <div class="kpi-val" style="color:var(--green);">20→30</div>
+          <div class="kpi-label">km / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">3–4</div>
+          <div class="kpi-label">sesje / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val" style="color:var(--green);">≤145</div>
+          <div class="kpi-label">maks. tętno bpm</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">10%</div>
+          <div class="kpi-label">maks. wzrost km/tyg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">10 km</div>
+          <div class="kpi-label">maks. długi bieg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">100%</div>
+          <div class="kpi-label">treningu w Z1–Z2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-title">Przykładowy tydzień (tydzień 5–6)</div>
+    <div class="week-grid">
+      <div class="day-card easy">
+        <div class="day-label">Pon</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Bieg Z2 ciągły</div>
+        <div class="day-km" style="color:var(--green);">5 km</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-label">Wt</div>
+        <div class="day-icon">🧘</div>
+        <div class="day-type" style="color:var(--muted);">Odpoczynek / Mobilność</div>
+        <div class="day-km" style="color:var(--muted);">—</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Śr</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Bieg Z2 ciągły</div>
+        <div class="day-km" style="color:var(--green);">6 km</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-label">Czw</div>
+        <div class="day-icon">💪</div>
+        <div class="day-type" style="color:var(--muted);">Siłownia + Core</div>
+        <div class="day-km" style="color:var(--muted);">—</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Pt</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Bieg Z1–Z2 lekki</div>
+        <div class="day-km" style="color:var(--green);">5 km</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-label">Sob</div>
+        <div class="day-icon">😴</div>
+        <div class="day-type" style="color:var(--muted);">Odpoczynek</div>
+        <div class="day-km" style="color:var(--muted);">—</div>
+      </div>
+      <div class="day-card long">
+        <div class="day-label">Nd</div>
+        <div class="day-icon">🔵</div>
+        <div class="day-type">Długi bieg Z2</div>
+        <div class="day-km" style="color:var(--accent2);">9 km</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(232,245,66,0.15); background:rgba(232,245,66,0.04);">
+      <div class="card-label">Wytyczne kluczowe — Faza 1</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px;">
+        <div><div class="tag-pill tag-green" style="margin-bottom:8px;">Tętno</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Każda sesja startuje i kończy w Z2. Zwalniasz lub przechodzisz w marsz kiedy tętno przekracza 145 bpm. Bez negocjacji.</p></div>
+        <div><div class="tag-pill tag-yellow" style="margin-bottom:8px;">Tydzień 4.</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Co czwarty tydzień to tydzień rozbiegowy — redukujesz objętość o 20–30%. Ciało potrzebuje cykli obciążenie→regeneracja.</p></div>
+        <div><div class="tag-pill tag-blue" style="margin-bottom:8px;">Siłownia</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">2× w tygodniu: pośladki, rdzeń, mięśnie stabilizujące kolano. Priorytet: martwy ciąg rumuński, wykroki, plank, mostek.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAZA 2 -->
+  <div class="phase-content" id="phase-1">
+    <div class="phase-header-block">
+      <div class="phase-title-card" data-num="02">
+        <div class="phase-duration"><span style="color:var(--z3);">●</span> Miesiące 4–8</div>
+        <div class="phase-big-title">ROZBUDOWA<br>OBJĘTOŚCI</div>
+        <p class="phase-goal">Silnik tlenowy rośnie — widać to po tym, że to samo tętno daje lepsze tempo. Czas systematycznie zwiększać objętość i wprowadzać pierwsze bodźce progowe. Cel: pierwszy półmaraton jako test formy.</p>
+      </div>
+      <div class="phase-kpis-card">
+        <div class="kpi-item">
+          <div class="kpi-val" style="color:var(--z3);">40–60</div>
+          <div class="kpi-label">km / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">4–5</div>
+          <div class="kpi-label">sesje / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">1×</div>
+          <div class="kpi-label">bieg tempowy Z3/tyg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">25 km</div>
+          <div class="kpi-label">maks. długi bieg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">~7:00</div>
+          <div class="kpi-label">oczek. tempo Z2 /km</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">HM</div>
+          <div class="kpi-label">wyścig testowy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-title">Przykładowy tydzień (tydzień 20–22)</div>
+    <div class="week-grid">
+      <div class="day-card easy">
+        <div class="day-label">Pon</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Bieg Z2 ciągły</div>
+        <div class="day-km" style="color:var(--green);">8 km</div>
+      </div>
+      <div class="day-card moderate">
+        <div class="day-label">Wt</div>
+        <div class="day-icon">🟡</div>
+        <div class="day-type">Bieg tempowy Z3</div>
+        <div class="day-km" style="color:var(--z3);">10 km</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Śr</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z2 regeneracja</div>
+        <div class="day-km" style="color:var(--green);">7 km</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-label">Czw</div>
+        <div class="day-icon">💪</div>
+        <div class="day-type" style="color:var(--muted);">Siłownia + Core</div>
+        <div class="day-km" style="color:var(--muted);">—</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Pt</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z2 lekki</div>
+        <div class="day-km" style="color:var(--green);">8 km</div>
+      </div>
+      <div class="day-card rest">
+        <div class="day-label">Sob</div>
+        <div class="day-icon">😴</div>
+        <div class="day-type" style="color:var(--muted);">Odpoczynek</div>
+        <div class="day-km" style="color:var(--muted);">—</div>
+      </div>
+      <div class="day-card long">
+        <div class="day-label">Nd</div>
+        <div class="day-icon">🔵</div>
+        <div class="day-type">Długi bieg Z2</div>
+        <div class="day-km" style="color:var(--accent2);">20 km</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(245,200,66,0.15); background:rgba(245,200,66,0.03);">
+      <div class="card-label">Wytyczne kluczowe — Faza 2</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px;">
+        <div><div class="tag-pill tag-yellow" style="margin-bottom:8px;">Tempowy Z3</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Jeden bieg/tydzień w Z3: ciągłe 20–30 min w tętnie 146–158 bpm. Krótkie zdania możliwe, ale nie rozmowa.</p></div>
+        <div><div class="tag-pill tag-blue" style="margin-bottom:8px;">Półmaraton</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Start w HM w mies. 6–7. Cel: ukończyć spokojnie w ~2:00–2:10h. Test bazy i logistyki wyścigu, nie walka z czasem.</p></div>
+        <div><div class="tag-pill tag-green" style="margin-bottom:8px;">Postęp Z2</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Oczekuj, że tempo Z2 (≤145 bpm) poprawi się z ~10:00/km do ~7:30–7:00/km. To znak że baza działa.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAZA 3 -->
+  <div class="phase-content" id="phase-2">
+    <div class="phase-header-block">
+      <div class="phase-title-card" data-num="03">
+        <div class="phase-duration"><span style="color:var(--z4);">●</span> Miesiące 9–16</div>
+        <div class="phase-big-title">SPECYFIKA<br>MARATOŃSKA</div>
+        <p class="phase-goal">Właściwy trening maratoński. Wprowadzamy interwały Z4 i biegi w docelowym tempie 4:15/km. Długi bieg rośnie do 30–32 km. Zalecany start w pierwszym maratonie — prawdopodobny wynik 3:10–3:30h — jako doświadczenie, nie cel.</p>
+      </div>
+      <div class="phase-kpis-card">
+        <div class="kpi-item">
+          <div class="kpi-val" style="color:var(--z4);">60–75</div>
+          <div class="kpi-label">km / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">5–6</div>
+          <div class="kpi-label">sesje / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">4:15</div>
+          <div class="kpi-label">tempo maratoń. /km</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">32 km</div>
+          <div class="kpi-label">maks. długi bieg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">~6:00</div>
+          <div class="kpi-label">tempo Z2 /km</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">MAR</div>
+          <div class="kpi-label">1. maraton testowy</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-title">Przykładowy tydzień szczytowy</div>
+    <div class="week-grid">
+      <div class="day-card easy">
+        <div class="day-label">Pon</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z2 lekki</div>
+        <div class="day-km" style="color:var(--green);">10 km</div>
+      </div>
+      <div class="day-card hard">
+        <div class="day-label">Wt</div>
+        <div class="day-icon">🔴</div>
+        <div class="day-type">Interwały 5×1000m Z4</div>
+        <div class="day-km" style="color:var(--red);">12 km</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Śr</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z2 regeneracja</div>
+        <div class="day-km" style="color:var(--green);">10 km</div>
+      </div>
+      <div class="day-card moderate">
+        <div class="day-label">Czw</div>
+        <div class="day-icon">🟡</div>
+        <div class="day-type">Tempo maraton 4:15/km</div>
+        <div class="day-km" style="color:var(--z3);">14 km</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Pt</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z1 trucht</div>
+        <div class="day-km" style="color:var(--green);">8 km</div>
+      </div>
+      <div class="day-card easy">
+        <div class="day-label">Sob</div>
+        <div class="day-icon">🟢</div>
+        <div class="day-type">Z2 lekki</div>
+        <div class="day-km" style="color:var(--green);">10 km</div>
+      </div>
+      <div class="day-card long">
+        <div class="day-label">Nd</div>
+        <div class="day-icon">🔵</div>
+        <div class="day-type">Długi bieg Z2</div>
+        <div class="day-km" style="color:var(--accent2);">30 km</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(245,145,66,0.15); background:rgba(245,145,66,0.03);">
+      <div class="card-label">Wytyczne kluczowe — Faza 3</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px;">
+        <div><div class="tag-pill tag-red" style="margin-bottom:8px;">Interwały Z4</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">1× tydz. powtórzenia 800m–1600m w Z4 (tętno 159–172). Zacznij od 4×800m, dojdź do 6×1200m. Zawsze pełna regeneracja między.</p></div>
+        <div><div class="tag-pill tag-yellow" style="margin-bottom:8px;">Tempo maratoń.</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">1× tydz. bieg 8–20 km w tempie 4:15/km (docelowym). To "uczysz" ciało rytmu wyścigu. Kluczowa sesja bloku.</p></div>
+        <div><div class="tag-pill tag-blue" style="margin-bottom:8px;">1. Maraton</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Start w mies. 13–14 dla nabrania doświadczenia. Strategia: bieżnik 4:45–5:00/km przez pierwsze 30 km, potem do woli.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAZA 4 -->
+  <div class="phase-content" id="phase-3">
+    <div class="phase-header-block">
+      <div class="phase-title-card" data-num="04">
+        <div class="phase-duration"><span style="color:var(--red);">●</span> Miesiące 17–24</div>
+        <div class="phase-big-title">ATAK<br>NA SUB-3H</div>
+        <p class="phase-goal">Specyficzny 16–20-tygodniowy blok pod wybrany maraton. Kilometraż szczytuje na 80 km/tydzień. Wyostrzamy tempo 4:15/km, optymalizujemy żywienie i strategię wyścigu. Tapering 3 tygodnie przed startem.</p>
+      </div>
+      <div class="phase-kpis-card">
+        <div class="kpi-item">
+          <div class="kpi-val" style="color:var(--red);">~80</div>
+          <div class="kpi-label">km / tydzień szczyt</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">6</div>
+          <div class="kpi-label">sesje / tydzień</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">2:59</div>
+          <div class="kpi-label">cel wynikowy</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">3×</div>
+          <div class="kpi-label">kluczowe sesje /tyg</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">3 tyg.</div>
+          <div class="kpi-label">tapering</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-val">HM</div>
+          <div class="kpi-label">cel: sub 1:28h</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-title">Struktura bloku 16-tygodniowego</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:24px;">
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:10px; font-weight:600; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Tyg. 1–4</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--text);">Baza pod blok</div>
+        <div style="font-size:12px; color:var(--green); margin-top:6px; font-family:'Bebas Neue',sans-serif; font-size:20px;">65–70 km</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:10px; font-weight:600; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Tyg. 5–10</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--text);">Szczyt + specyfika</div>
+        <div style="font-size:12px; color:var(--orange); margin-top:6px; font-family:'Bebas Neue',sans-serif; font-size:20px;">75–80 km</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:10px; font-weight:600; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Tyg. 11–13</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--text);">Podtrzymanie</div>
+        <div style="font-size:12px; color:var(--z3); margin-top:6px; font-family:'Bebas Neue',sans-serif; font-size:20px;">65 km</div>
+      </div>
+      <div class="card" style="text-align:center; padding:20px; border-color:rgba(245,66,66,0.25); background:rgba(245,66,66,0.04);">
+        <div style="font-size:10px; font-weight:600; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">Tyg. 14–16</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--red);">TAPERING</div>
+        <div style="font-size:12px; color:var(--red); margin-top:6px; font-family:'Bebas Neue',sans-serif; font-size:20px;">50 → 30 → START</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-color:rgba(245,66,66,0.15); background:rgba(245,66,66,0.03);">
+      <div class="card-label">Kluczowe sesje tygodnia — Faza 4</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:8px;">
+        <div><div class="tag-pill tag-red" style="margin-bottom:8px;">Sesja 1 — wt</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Interwały: 3×3 km lub 6×1 km w tempie 4:00/km (Z4). Pełna regeneracja 90 sek. między. Serce tego tygodnia.</p></div>
+        <div><div class="tag-pill tag-yellow" style="margin-bottom:8px;">Sesja 2 — czw</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">16–20 km w tempie maratońskim 4:15/km. Uczysz ciało komfortowego rytmu docelowego. Kluczowa sesja specyficzna.</p></div>
+        <div><div class="tag-pill tag-blue" style="margin-bottom:8px;">Sesja 3 — nd</div><p style="font-size:13px; color:rgba(232,228,220,0.7);">Długi bieg 28–34 km w Z2. Ostatnie 10 km można "dorzucić" tempo maratońskie jeśli siły pozwalają.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ZASADY -->
+<section id="zasady">
+  <div class="section-tag">
+    <span class="section-num">04</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">ŻELAZNE ZASADY</h2>
+
+  <div class="rules-grid">
+    <div class="rule-card r1">
+      <span class="rule-icon">❤️</span>
+      <div class="rule-title">Tętno ponad tempem</div>
+      <p class="rule-text">
+        <span class="rule-highlight">Zegarek z pulsometrem to najważniejszy sprzęt.</span>
+        Każdego dnia pytasz się: "Czy moje tętno jest poniżej 145 bpm?" Jeśli nie — zwalniasz lub przechodzisz w marsz.
+        Tempo jest efektem treningu, nie jego parametrem. Zaufaj procesowi.
+      </p>
+    </div>
+    <div class="rule-card r2">
+      <span class="rule-icon">📉</span>
+      <div class="rule-title">Zasada 10% i tydzień rozbiegowy</div>
+      <p class="rule-text">
+        <span class="rule-highlight">Nigdy nie zwiększaj kilometrażu o więcej niż 10% tygodniowo.</span>
+        Co 4. tydzień redukujesz objętość o 20–30% (tydzień rozbiegowy). Adaptacje następują podczas odpoczynku, nie podczas treningu.
+      </p>
+    </div>
+    <div class="rule-card r3">
+      <span class="rule-icon">💪</span>
+      <div class="rule-title">Siłownia 2× w tygodniu</div>
+      <p class="rule-text">
+        <span class="rule-highlight">Kobiety szczególnie korzystają na treningu siłowym.</span>
+        Priorytety: pośladki (mostek, martwy ciąg rumuński), rdzeń (plank, hollow hold), mięśnie stabilizujące kolano.
+        Chroni przed kontuzjami i poprawia ekonomię biegu o 3–8%.
+      </p>
+    </div>
+    <div class="rule-card r4">
+      <span class="rule-icon">😴</span>
+      <div class="rule-title">Sen = Trening #1</div>
+      <p class="rule-text">
+        <span class="rule-highlight">7–9 godzin snu to obowiązek, nie luksus.</span>
+        Adaptacje — tworzenie mitochondriów, naprawa mięśni, konsolidacja wzorców ruchowych — następują wyłącznie podczas snu.
+        Brak snu zeruje efekty treningu.
+      </p>
+    </div>
+    <div class="rule-card r5">
+      <span class="rule-icon">🥩</span>
+      <div class="rule-title">Żelazo i morfologia</div>
+      <p class="rule-text">
+        <span class="rule-highlight">Kobiety biegające są w grupie wysokiego ryzyka anemii.</span>
+        Badaj morfologię + ferrytynę co 3 miesiące. Ferrytyna &lt;30 µg/L hamuje adaptacje tlenowe nawet przy dobrym treningu.
+        Dieta: 1.6–2g białka/kg, wystarczające węglowodany.
+      </p>
+    </div>
+    <div class="rule-card r6">
+      <span class="rule-icon">🚫</span>
+      <div class="rule-title">Unikaj "szarej strefy"</div>
+      <p class="rule-text">
+        <span class="rule-highlight">Zbyt ciężko na łatwy dzień — zbyt lekko na ciężki.</span>
+        Najczęstszy błąd biegaczy. Łatwe biegi MUSZĄ być naprawdę łatwe (Z2), a ciężkie — naprawdę ciężkie (Z4–Z5).
+        Środek nie daje żadnych adaptacji, tylko zmęczenie.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- KAMIENIE MILOWE -->
+<section id="kamienie">
+  <div class="section-tag">
+    <span class="section-num">05</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">MAPA POSTĘPU</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Mies. 1–2</div>
+        <div>
+          <div class="milestone-title">Wyrobienie rytmu — 4× /tydzień w Z2</div>
+          <div class="milestone-desc">Biegasz 20–25 km/tydz. wolno (9:30–10:30/km). Tętno ≤145 bpm. Nie bój się tempa — to jest właśnie poprawne.</div>
+        </div>
+        <div class="milestone-target" style="color:var(--z2);">20 km</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Miesiąc 4</div>
+        <div>
+          <div class="milestone-title">5 km poniżej 28 minut</div>
+          <div class="milestone-desc">Pierwsze wymierne przyspieszenie tempa Z2 — dowód że silnik tlenowy rośnie. Start w Parkrun lub lokalnym biegu 5 km.</div>
+        </div>
+        <div class="milestone-target">28:00</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Mies. 6–7</div>
+        <div>
+          <div class="milestone-title">Pierwszy półmaraton — ukończenie spokojnie</div>
+          <div class="milestone-desc">Cel: 2:00–2:15h. Biegasz równo, finiszujesz ze siłami. Test bazy i logistyki wyścigu. Wynik drugorzędny.</div>
+        </div>
+        <div class="milestone-target">2:10h</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Mies. 9–10</div>
+        <div>
+          <div class="milestone-title">Półmaraton sub-1:50h</div>
+          <div class="milestone-desc">Tempo ~5:12/km. Prognoza Riegela: maraton ~3:50h. Siłownik tlenowy wyraźnie mocniejszy — tempo Z2 poniżej 7:00/km.</div>
+        </div>
+        <div class="milestone-target" style="color:var(--z3);">1:50h</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Mies. 13–15</div>
+        <div>
+          <div class="milestone-title">Pierwszy maraton — doświadczenie wyścigowe</div>
+          <div class="milestone-desc">Wynik: 3:10–3:30h. Uczysz się tempa wyścigu, żywienia, strategii. Wiedza z tego startu jest bezcenna dla sub-3h.</div>
+        </div>
+        <div class="milestone-target" style="color:var(--z4);">3:20h</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="milestone-card">
+        <div class="milestone-time">Mies. 18–19</div>
+        <div>
+          <div class="milestone-title">Półmaraton sub-1:28h</div>
+          <div class="milestone-desc">Prognoza sub-3h maratonu (Riegel) = HM ~1:26h. Jesteś tuż przy celu. Tempo Z2 przekracza 6:00/km.</div>
+        </div>
+        <div class="milestone-target" style="color:var(--orange);">1:28h</div>
+      </div>
+    </div>
+
+    <div class="timeline-item star">
+      <div class="milestone-card star-card">
+        <div class="milestone-time">Mies. 22–24</div>
+        <div>
+          <div class="milestone-title">⭐ Sub-3h Maraton</div>
+          <div class="milestone-desc">Berlin, Warszawa, Wrocław, Amsterdam — płaskie i szybkie. Strategia: 4:14–4:16/km od km 0. Równe tempo. Zaufaj bazie.</div>
+        </div>
+        <div class="milestone-target" style="color:var(--accent);">2:59h</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SPRZĘT -->
+<section id="sprzet">
+  <div class="section-tag">
+    <span class="section-num">06</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-h">NIEZBĘDNY SPRZĘT</h2>
+
+  <div class="equip-grid">
+    <div class="equip-card">
+      <div class="card-label">Konieczne — bez tego nie trenuj</div>
+      <ul class="equip-list">
+        <li class="equip-item">
+          <div class="equip-check">✓</div>
+          <div><strong>Zegarek GPS z pulsometrem nadgarstkowym</strong><br><span style="color:var(--muted); font-size:12px;">Garmin Forerunner 165/265, Polar Pacer Pro, COROS Pace 3. Pulsometr nadgarstkowy wystarczy — opcjonalnie pas piersiowy dla precyzji.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check">✓</div>
+          <div><strong>Buty do codziennych biegów (amortyzacja)</strong><br><span style="color:var(--muted); font-size:12px;">ASICS Gel-Nimbus, Brooks Ghost, Saucony Ride. Wygoda > moda. Wymień po 700–800 km.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check">✓</div>
+          <div><strong>Biustonosz sportowy — wysokie wsparcie</strong><br><span style="color:var(--muted); font-size:12px;">Absolutny must-have. Anita, Shock Absorber, Brooks Dare Double. Wpływa na komfort i efektywność biegu.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check">✓</div>
+          <div><strong>Buty startowe / carbon plate</strong><br><span style="color:var(--muted); font-size:12px;">Nike Vaporfly, Adidas Adizero, ASICS MetaSpeed. Stosuj tylko na tempowych i wyścigach. Maks. 200–400 km.</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="equip-card">
+      <div class="card-label">Pomocnicze — ułatwią progres</div>
+      <ul class="equip-list">
+        <li class="equip-item">
+          <div class="equip-check equip-opt">◦</div>
+          <div><strong>Pas piersiowy (HRM)</strong><br><span style="color:var(--muted); font-size:12px;">Precyzyjniejszy od nadgarstkowego. Garmin HRM-Pro, Polar H10. Polecany do sesji interwałowych.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check equip-opt">◦</div>
+          <div><strong>Roller / pianka do masażu</strong><br><span style="color:var(--muted); font-size:12px;">10 min rolowania po każdej sesji. Łydki, pośladki, pasmo biodrowo-piszczelowe.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check equip-opt">◦</div>
+          <div><strong>Kamizelka biegowa / flaszka</strong><br><span style="color:var(--muted); font-size:12px;">Na biegi powyżej 60 minut. Nawodnienie zaczyna się przed biegiem, nie w jego trakcie.</span></div>
+        </li>
+        <li class="equip-item">
+          <div class="equip-check equip-opt">◦</div>
+          <div><strong>Aplikacja: Garmin Connect + Strava</strong><br><span style="color:var(--muted); font-size:12px;">Śledzenie postępów, analiza tętna, porównywanie tygodni. Training Peaks dla zaawansowanego planowania.</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SUB · 3H</div>
+  <div class="footer-note">
+    Plan ma charakter orientacyjny. Dostosuj do samopoczucia, wyników i ewentualnych zaleceń fizjoterapeuty lub lekarza. Regularnie badaj morfologię i ferrytynę. Słuchaj swojego ciała.
+  </div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+function switchPhase(idx) {
+  document.querySelectorAll('.phase-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.phase-content').forEach((c, i) => {
+    c.classList.toggle('active', i === idx);
+  });
+}
+
+// Animate zone bars on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.zone-bar-fill').forEach(bar => {
+        bar.style.width = bar.style.width;
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.zones-container').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
